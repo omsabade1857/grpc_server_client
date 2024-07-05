@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+option java_multiple_files = true;
+option java_package = "com.client";
+
+message StudentRequest {
+    string name = 1;
+    string designation = 2;
+    string dateOfBirth = 3;
+    string mobileNumber = 4;
+    repeated AddressRequest address = 5;
+    int32 id = 6;
+}
+
+message AddressRequest {
+	int32 id = 4;
+    string state = 1;
+    string street = 2;
+    int64 pinCode = 3;
+    int32 StudentId = 5;
+}
+
+message StudentId {
+    int32 id = 1;
+}
+
+message StudentResponse {
+	int32 id = 6;
+    string name = 1;
+    string designation = 2;
+    string dateOfBirth = 3;
+    string mobileNumber = 4;
+    repeated AddressResponse address = 5;
+}
+
+message AddressResponse {
+	int32 id = 4;
+    string state = 1;
+    string street = 2;
+    int64 pinCode = 3;
+    int32 studentId = 5;
+}
+
+message AllStudentResponse {
+    repeated StudentResponse students = 1;
+}
+
+service StudentService {
+    rpc createStudent (StudentRequest) returns (StudentResponse);
+    rpc getStudentById (StudentId) returns (StudentResponse);
+    rpc getAllStudents (google.protobuf.Empty) returns (AllStudentResponse);
+//     rpc deleteStudent (StudentId) returns (google.protobuf.Empty);
+//    rpc updateStudent (StudentRequest) returns (StudentResponse);
+}
